@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        .calculadora {
+            margin-top: 40px;
+            border: solid 1px #000;
+            padding: 20px;
+            background-color: #2E2E2E;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px #000;
+        }
+
+        .btn {
+            width: 60px;
+            height: 50px;
+            margin: 5px;
+            box-shadow: 1px 1px 1px #000;
+        }
+
+        .clear {
+            width: 130px;
+        }
+
+        .enter {
+            height: 110px;
+        }
+
+        .zero {
+            width: 130px;
+        }
+
+        .resultado {
+            text-align: right;
+            font-size: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: solid 1px #000;
+            box-shadow: 1px 1px 1px #000;
+        }
+    </style>
+</head>
+<body style="background: #D9D9D9">
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="calculadora">
+                    <input type="text" id="display" class="form-control resultado" placeholder="0" disabled="disabled" />
+                    
+                    <div class="row">
+                        <button type="button" class="btn btn-dark btn-lg clear">C</button>
+                        <button type="button" class="btn btn-dark btn-lg">/</button>
+                        <button type="button" class="btn btn-dark btn-lg">x</button>
+                    </div>
+
+                    <div class="row">
+                        <button type="button" class="btn btn-dark btn-lg">7</button>
+                        <button type="button" class="btn btn-dark btn-lg">8</button>
+                        <button type="button" class="btn btn-dark btn-lg">9</button>
+                        <button type="button" class="btn btn-dark btn-lg">-</button>
+                    </div>
+                    
+                    <div class="row">
+                        <button type="button" class="btn btn-dark btn-lg">4</button>
+                        <button type="button" class="btn btn-dark btn-lg">5</button>
+                        <button type="button" class="btn btn-dark btn-lg">6</button>
+                        <button type="button" class="btn btn-dark btn-lg">+</button>
+                    </div>
+
+                    <div class="row">
+                        <button type="button" class="btn btn-dark btn-lg">1</button>
+                        <button type="button" class="btn btn-dark btn-lg">2</button>
+                        <button type="button" class="btn btn-dark btn-lg">3</button>
+                        <button type="button" class="btn btn-dark btn-lg enter">=</button>
+                    </div>
+
+                    <div class="row" style="margin-top: -60px">
+                        <button type="button" class="btn btn-dark zero btn-lg">0</button>
+                        <button type="button" class="btn btn-dark btn-lg">.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let display = document.getElementById("display");
+            let buttons = document.querySelectorAll(".btn");
+            let currentInput = "";
+
+            function updateDisplay(value) {
+                if (value === "C") {
+                    currentInput = "";
+                    display.value = "0";
+                } else if (value === "=" || value === "Enter") {
+                    try {
+                        currentInput = currentInput.replace(/x/g, "*"); // Substitui 'x' por '*'
+                        display.value = eval(currentInput);
+                        currentInput = display.value;
+                    } catch (error) {
+                        display.value = "Erro";
+                        currentInput = "";
+                    }
+                } else if (value === "Backspace") {
+                    currentInput = currentInput.slice(0, -1); // Apaga o último caractere
+                    display.value = currentInput || "0"; // Se apagar tudo, volta para "0"
+                } else {
+                    if (display.value === "0" && !isNaN(value)) {
+                        currentInput = value;
+                    } else {
+                        currentInput += value;
+                    }
+                    display.value = currentInput;
+                }
+            }
+
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    updateDisplay(this.textContent);
+                });
+            });
+
+            document.addEventListener("keydown", function (event) {
+                let key = event.key;
+
+                if ((key >= "0" && key <= "9") || key === "." || key === "+" || key === "-" || key === "*" || key === "/" || key === "Enter") {
+                    event.preventDefault();
+                    updateDisplay(key);
+                } else if (key === "x") {
+                    updateDisplay("*");
+                } else if (key === "Backspace") {
+                    updateDisplay("Backspace");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

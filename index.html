@@ -11,6 +11,7 @@
             background-color: #2E2E2E;
             border-radius: 10px;
             box-shadow: 1px 1px 5px #000;
+            
         }
 
         .btn {
@@ -30,6 +31,7 @@
 
         .zero {
             width: 130px;
+            
         }
 
         .resultado {
@@ -43,44 +45,40 @@
     </style>
 </head>
 <body style="background: #D9D9D9">
-    <div class="container">
-        <div class="row">
-            <div class="col d-flex justify-content-center">
-                <div class="calculadora">
-                    <input type="text" id="display" class="form-control resultado" placeholder="0" disabled="disabled" />
-                    
-                    <div class="row">
-                        <button type="button" class="btn btn-dark btn-lg clear">C</button>
-                        <button type="button" class="btn btn-dark btn-lg">/</button>
-                        <button type="button" class="btn btn-dark btn-lg">x</button>
-                    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="calculadora">
+            <input type="text" id="display" class="form-control resultado" placeholder="0" disabled="disabled" />
+            
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-dark clear">C</button>
+                <button type="button" class="btn btn-dark">/</button>
+                <button type="button" class="btn btn-dark">x</button>
+            </div>
 
-                    <div class="row">
-                        <button type="button" class="btn btn-dark btn-lg">7</button>
-                        <button type="button" class="btn btn-dark btn-lg">8</button>
-                        <button type="button" class="btn btn-dark btn-lg">9</button>
-                        <button type="button" class="btn btn-dark btn-lg">-</button>
-                    </div>
-                    
-                    <div class="row">
-                        <button type="button" class="btn btn-dark btn-lg">4</button>
-                        <button type="button" class="btn btn-dark btn-lg">5</button>
-                        <button type="button" class="btn btn-dark btn-lg">6</button>
-                        <button type="button" class="btn btn-dark btn-lg">+</button>
-                    </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-dark">7</button>
+                <button type="button" class="btn btn-dark">8</button>
+                <button type="button" class="btn btn-dark">9</button>
+                <button type="button" class="btn btn-dark">-</button>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-dark">4</button>
+                <button type="button" class="btn btn-dark">5</button>
+                <button type="button" class="btn btn-dark">6</button>
+                <button type="button" class="btn btn-dark">+</button>
+            </div>
 
-                    <div class="row">
-                        <button type="button" class="btn btn-dark btn-lg">1</button>
-                        <button type="button" class="btn btn-dark btn-lg">2</button>
-                        <button type="button" class="btn btn-dark btn-lg">3</button>
-                        <button type="button" class="btn btn-dark btn-lg enter">=</button>
-                    </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-dark">1</button>
+                <button type="button" class="btn btn-dark">2</button>
+                <button type="button" class="btn btn-dark">3</button>
+                <button type="button" class="btn btn-dark enter">=</button>
+            </div>
 
-                    <div class="row" style="margin-top: -60px">
-                        <button type="button" class="btn btn-dark zero btn-lg">0</button>
-                        <button type="button" class="btn btn-dark btn-lg">.</button>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-start">
+                <button type="button" class="btn btn-dark zero" style="margin-top: -53px;">0</button>
+                <button type="button" class="btn btn-dark" style="margin-top: -53px;" >.</button>
             </div>
         </div>
     </div>
@@ -97,7 +95,7 @@
                     display.value = "0";
                 } else if (value === "=" || value === "Enter") {
                     try {
-                        currentInput = currentInput.replace(/x/g, "*"); // Substitui 'x' por '*'
+                        currentInput = currentInput.replace(/x/g, "*");
                         display.value = eval(currentInput);
                         currentInput = display.value;
                     } catch (error) {
@@ -105,8 +103,8 @@
                         currentInput = "";
                     }
                 } else if (value === "Backspace") {
-                    currentInput = currentInput.slice(0, -1); // Apaga o último caractere
-                    display.value = currentInput || "0"; // Se apagar tudo, volta para "0"
+                    currentInput = currentInput.slice(0, -1);
+                    display.value = currentInput || "0";
                 } else {
                     if (display.value === "0" && !isNaN(value)) {
                         currentInput = value;
